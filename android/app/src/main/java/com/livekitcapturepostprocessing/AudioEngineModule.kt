@@ -2,28 +2,25 @@ package com.livekitcapturepostprocessing
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
-import io.livekit.android.LiveKit
-import io.livekit.android.events.RoomEvent
-import io.livekit.android.room.Room
-import io.livekit.android.events.collect
-import androidx.lifecycle.lifecycleScope
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.synervoz.switchboard.sdk.audiograph.AudioBuffer
 import com.synervoz.switchboard.sdk.audiograph.AudioData
 import com.synervoz.switchboard.sdk.audiograph.AudioGraph
 import com.synervoz.switchboard.sdk.audiographnodes.GainNode
-import com.synervoz.switchboard.sdk.audiographnodes.MonoToMultiChannelNode
-import com.synervoz.switchboard.sdk.audiographnodes.MultiChannelToMonoNode
 import com.synervoz.switchboard.sdk.enums.AudioSampleFormat
-import com.synervoz.switchboardsuperpowered.audiographnodes.ReverbNode
 import com.synervoz.switchboardvoicemod.audiographnodes.VoicemodNode
 import io.livekit.android.AudioOptions
+import io.livekit.android.LiveKit
 import io.livekit.android.LiveKitOverrides
 import io.livekit.android.audio.AudioProcessorInterface
 import io.livekit.android.audio.AudioProcessorOptions
+import io.livekit.android.events.RoomEvent
+import io.livekit.android.events.collect
+import io.livekit.android.room.Room
 import kotlinx.coroutines.launch
 import java.nio.ByteBuffer
 
@@ -46,15 +43,12 @@ class AudioEngineModule(reactContext: ReactApplicationContext) :
     lateinit var inAudioBuffer: AudioBuffer
     lateinit var outAudioBuffer: AudioBuffer
 
-    lateinit var room: Room
     val audioGraph = AudioGraph()
-
     val voicemodNode = VoicemodNode()
+    val normalizationGainNode = GainNode()
+    val denormalizationGainNode = GainNode()
 
-    val monoToMultiChannelNode = MonoToMultiChannelNode()
-    val multiChannelToMonoNode = MultiChannelToMonoNode()
-    val reverbNode = ReverbNode()
-
+    lateinit var room: Room
 
     private val audioProcessorOptions = AudioProcessorOptions(
         capturePostProcessor = object : AudioProcessorInterface {
@@ -67,77 +61,15 @@ class AudioEngineModule(reactContext: ReactApplicationContext) :
             }
 
             override fun initializeAudioProcessing(sampleRateHz: Int, numChannels: Int) {
-
-                if (!::inAudioData.isInitialized || numChannels != numberOfChannels) {
-                    if (::inAudioData.isInitialized) {
-                        inAudioData.close()
-                        outAudioData.close()
-                        inAudioBuffer.close()
-                        outAudioBuffer.close()
-                    }
-                    inByteArray = ByteArray(maxNumberOfFrames * numChannels * encoding.bytesPerSample)
-
-                    inAudioData = AudioData(numChannels, maxNumberOfFrames)
-                    outAudioData = AudioData(numChannels, maxNumberOfFrames)
-
-                    inAudioBuffer = AudioBuffer(
-                        numChannels,
-                        maxNumberOfFrames,
-                        false,
-                        sampleRateHz,
-                        inAudioData
-                    )
-                    outAudioBuffer = AudioBuffer(
-                        numChannels,
-                        maxNumberOfFrames,
-                        false,
-                        sampleRateHz,
-                        outAudioData
-                    )
-                } else if (sampleRateHz != sampleRate) {
-                    inAudioBuffer.setSampleRate(sampleRateHz)
-                    outAudioBuffer.setSampleRate(sampleRateHz)
-                }
-
-
-                sampleRate = sampleRateHz
-                numberOfChannels = numChannels
+                initAudioBuffers(sampleRateHz, numChannels)
             }
 
             override fun resetAudioProcessing(newRate: Int) {
-                if (newRate != sampleRate) {
-                    inAudioBuffer.setSampleRate(newRate)
-                    outAudioBuffer.setSampleRate(newRate)
-                }
-
-                sampleRate = newRate
+                onSamplerateChanged(newRate)
             }
 
             override fun processAudio(numBands: Int, numFrames: Int, buffer: ByteBuffer) {
-                inAudioBuffer.setNumberOfFrames(numFrames)
-                outAudioBuffer.setNumberOfFrames(numFrames)
-                val numSamples = numFrames * numberOfChannels
-
-                val currentPos = buffer.position()
-
-                buffer.get(inByteArray, 0, numSamples * encoding.bytesPerSample)
-
-                inAudioBuffer.copyFromByteArray(
-                    inByteArray,
-                    numSamples * encoding.bytesPerSample,
-                    encoding
-                )
-
-                audioGraph.processBuffer(inAudioBuffer, outAudioBuffer)
-
-                buffer.position(currentPos)
-
-                buffer.put(
-                    outAudioBuffer.getByteArray(encoding),
-                    0,
-                    numSamples * encoding.bytesPerSample
-                )
-
+                processAudioInternal(numBands, numFrames, buffer)
             }
         }
     )
@@ -161,23 +93,18 @@ class AudioEngineModule(reactContext: ReactApplicationContext) :
 
         room.audioProcessingController.setBypassForCapturePostProcessing(true)
 
-//        NOTE: I'll uncomment this once I figure out what's wrong with loading the Voicemod effects
-//        audioGraph.addNode(voicemodNode)
-//        audioGraph.connect(audioGraph.inputNode, voicemodNode)
-//        audioGraph.connect(voicemodNode, audioGraph.outputNode)
+        audioGraph.addNode(normalizationGainNode)
+        audioGraph.addNode(denormalizationGainNode)
+        audioGraph.addNode(voicemodNode)
 
+        audioGraph.connect(audioGraph.inputNode, normalizationGainNode)
+        audioGraph.connect(normalizationGainNode, voicemodNode)
+        audioGraph.connect(voicemodNode, denormalizationGainNode)
+        audioGraph.connect(denormalizationGainNode, audioGraph.outputNode)
 
-        // Superpowered effects. Will be removed once Voicemod is working properly
-        audioGraph.addNode(monoToMultiChannelNode)
-        audioGraph.addNode(multiChannelToMonoNode)
-        audioGraph.addNode(reverbNode)
-
-        reverbNode.isEnabled = true
-
-        audioGraph.connect(audioGraph.inputNode, monoToMultiChannelNode)
-        audioGraph.connect(monoToMultiChannelNode, reverbNode)
-        audioGraph.connect(reverbNode, multiChannelToMonoNode)
-        audioGraph.connect(multiChannelToMonoNode, audioGraph.outputNode)
+        val normalizationFactor = 32768f
+        normalizationGainNode.gain = 1f / normalizationFactor
+        denormalizationGainNode.gain = normalizationFactor
 
         audioGraph.start()
     }
@@ -196,10 +123,7 @@ class AudioEngineModule(reactContext: ReactApplicationContext) :
                         }
                     }
 
-                    room.connect(
-                        wsURL,
-                        token,
-                    )
+                    room.connect(wsURL, token)
 
                     val localParticipant = room.localParticipant
                     localParticipant.setMicrophoneEnabled(true)
@@ -217,9 +141,7 @@ class AudioEngineModule(reactContext: ReactApplicationContext) :
 
     @ReactMethod
     fun loadVoice(voiceName: String) {
-        // NOTE: this has no effects for now, since the VoicemodNode is not connected
         voicemodNode.loadVoice(voiceName)
-        voicemodNode.bypassEnabled = true
     }
 
     private fun onTrackSubscribed(event: RoomEvent.TrackSubscribed) {
@@ -227,6 +149,81 @@ class AudioEngineModule(reactContext: ReactApplicationContext) :
         Log.d(TAG, "onTrackSubscribed: $subscriberName")
         reactApplicationContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
             .emit("onTrackSubscribed", subscriberName)
+    }
+
+    private fun processAudioInternal(numBands: Int, numFrames: Int, buffer: ByteBuffer) {
+        inAudioBuffer.setNumberOfFrames(numFrames)
+        outAudioBuffer.setNumberOfFrames(numFrames)
+
+        val numBytes = numFrames * numberOfChannels * encoding.bytesPerSample
+
+        val currentPos = buffer.position()
+
+        buffer.get(inByteArray, 0, numBytes)
+
+        inAudioBuffer.copyFromByteArray(
+            inByteArray,
+            numBytes,
+            encoding
+        )
+
+        audioGraph.processBuffer(inAudioBuffer, outAudioBuffer)
+
+        buffer.position(currentPos)
+
+        buffer.put(
+            outAudioBuffer.getByteArray(encoding),
+            0,
+            numBytes
+        )
+
+    }
+
+    private fun initAudioBuffers(sampleRateHz: Int, numChannels: Int) {
+
+        if (!::inAudioData.isInitialized || numChannels != numberOfChannels) {
+            // if numberOfChannels changed we new to create new instances
+            if (::inAudioData.isInitialized) {
+                inAudioData.close()
+                outAudioData.close()
+                inAudioBuffer.close()
+                outAudioBuffer.close()
+            }
+            inByteArray = ByteArray(maxNumberOfFrames * numChannels * encoding.bytesPerSample)
+
+            inAudioData = AudioData(numChannels, maxNumberOfFrames)
+            outAudioData = AudioData(numChannels, maxNumberOfFrames)
+
+            inAudioBuffer = AudioBuffer(
+                numChannels,
+                maxNumberOfFrames,
+                false,
+                sampleRateHz,
+                inAudioData
+            )
+            outAudioBuffer = AudioBuffer(
+                numChannels,
+                maxNumberOfFrames,
+                false,
+                sampleRateHz,
+                outAudioData
+            )
+        } else if (sampleRateHz != sampleRate) {
+            inAudioBuffer.setSampleRate(sampleRateHz)
+            outAudioBuffer.setSampleRate(sampleRateHz)
+        }
+
+        sampleRate = sampleRateHz
+        numberOfChannels = numChannels
+    }
+
+    fun onSamplerateChanged(newRate: Int) {
+        if (newRate != sampleRate) {
+            inAudioBuffer.setSampleRate(newRate)
+            outAudioBuffer.setSampleRate(newRate)
+        }
+
+        sampleRate = newRate
     }
 
     @ReactMethod

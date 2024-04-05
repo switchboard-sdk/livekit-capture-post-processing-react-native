@@ -11,5 +11,4 @@ mkdir -p "${SCRIPT_DIR}/../android/libs"
 pushd "${SCRIPT_DIR}/../android/libs"
 wget "https://switchboard-sdk-public.s3.amazonaws.com/builds/release/${SDK_VERSION}/android/SwitchboardSDK.aar"
 wget "https://switchboard-sdk-public.s3.amazonaws.com/builds/release/${SDK_VERSION}/android/SwitchboardVoicemod.aar"
-wget "https://switchboard-sdk-public.s3.amazonaws.com/builds/release/${SDK_VERSION}/android/SwitchboardSuperpowered.aar"
 popd

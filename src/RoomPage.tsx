@@ -73,18 +73,22 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#FFFFFF', 
   },
   subscriberText: {
     marginBottom: 20, 
+    color: '#000000', 
   },
   label: {
     fontSize: 16, 
     fontWeight: 'bold', 
     marginBottom: 10, 
+    color: '#000000',
   },
   picker: {
     width: 250,
     height: 50,
     marginBottom: 20,
+    color: '#000000',
   },
 });

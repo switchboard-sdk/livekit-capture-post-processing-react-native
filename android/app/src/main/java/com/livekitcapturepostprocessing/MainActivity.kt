@@ -9,7 +9,6 @@ import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
 import com.synervoz.switchboard.sdk.SwitchboardSDK
-import com.synervoz.switchboardsuperpowered.SuperpoweredExtension
 import com.synervoz.switchboardvoicemod.VoicemodExtension
 
 
@@ -21,7 +20,6 @@ class MainActivity : ReactActivity() {
         // This should be called before any SwitchboardSDK is used
         SwitchboardSDK.initialize(this, "clientID", "clientSecret")
         VoicemodExtension.initialize(this, "voicemod license")
-        SuperpoweredExtension.initialize("ExampleLicenseKey-WillExpire-OnNextUpdate")
 
 
         // Check if the permission is already available.
