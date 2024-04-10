@@ -12,6 +12,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		6D82E05F2BC6D71600FD6C21 /* RCTAudioEngineModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D82E05E2BC6D71600FD6C21 /* RCTAudioEngineModule.m */; };
+		6D82E0602BC6D71600FD6C21 /* RCTAudioEngineModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D82E05E2BC6D71600FD6C21 /* RCTAudioEngineModule.m */; };
 		7699B88040F8A987B510C191 /* libPods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -41,6 +43,8 @@
 		5709B34CF0A7D63546082F79 /* Pods-LiveKitCapturePostProcessing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveKitCapturePostProcessing.release.xcconfig"; path = "Target Support Files/Pods-LiveKitCapturePostProcessing/Pods-LiveKitCapturePostProcessing.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.debug.xcconfig"; path = "Target Support Files/Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests/Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-LiveKitCapturePostProcessing.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LiveKitCapturePostProcessing.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D82E05D2BC6D20F00FD6C21 /* RCTAudioEngineModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAudioEngineModule.h; sourceTree = "<group>"; };
+		6D82E05E2BC6D71600FD6C21 /* RCTAudioEngineModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTAudioEngineModule.m; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LiveKitCapturePostProcessing/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.release.xcconfig"; path = "Target Support Files/Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests/Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -92,6 +96,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				6D82E05D2BC6D20F00FD6C21 /* RCTAudioEngineModule.h */,
+				6D82E05E2BC6D71600FD6C21 /* RCTAudioEngineModule.m */,
 			);
 			name = LiveKitCapturePostProcessing;
 			sourceTree = "<group>";
@@ -384,6 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D82E0602BC6D71600FD6C21 /* RCTAudioEngineModule.m in Sources */,
 				00E356F31AD99517003FC87E /* LiveKitCapturePostProcessingTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,6 +401,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				6D82E05F2BC6D71600FD6C21 /* RCTAudioEngineModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

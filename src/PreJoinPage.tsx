@@ -36,7 +36,7 @@ export const PreJoinPage = ({
       }
     });
 
-    AudioEngineModule.init()
+    AudioEngineModule.initialize()
 
   }, []);
 
