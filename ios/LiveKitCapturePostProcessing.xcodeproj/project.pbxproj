@@ -14,6 +14,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		6D82E05F2BC6D71600FD6C21 /* RCTAudioEngineModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D82E05E2BC6D71600FD6C21 /* RCTAudioEngineModule.m */; };
 		6D82E0602BC6D71600FD6C21 /* RCTAudioEngineModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D82E05E2BC6D71600FD6C21 /* RCTAudioEngineModule.m */; };
+		6D82E0642BC6E50500FD6C21 /* RCTAudioEngineModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D82E0632BC6E50500FD6C21 /* RCTAudioEngineModule.swift */; };
+		6D82E0652BC6E50500FD6C21 /* RCTAudioEngineModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D82E0632BC6E50500FD6C21 /* RCTAudioEngineModule.swift */; };
+		6D82E0682BC6E5B900FD6C21 /* SwitchboardSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 6D82E0672BC6E5B900FD6C21 /* SwitchboardSDK */; };
 		7699B88040F8A987B510C191 /* libPods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -43,8 +46,10 @@
 		5709B34CF0A7D63546082F79 /* Pods-LiveKitCapturePostProcessing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveKitCapturePostProcessing.release.xcconfig"; path = "Target Support Files/Pods-LiveKitCapturePostProcessing/Pods-LiveKitCapturePostProcessing.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.debug.xcconfig"; path = "Target Support Files/Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests/Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-LiveKitCapturePostProcessing.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LiveKitCapturePostProcessing.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6D82E05D2BC6D20F00FD6C21 /* RCTAudioEngineModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAudioEngineModule.h; sourceTree = "<group>"; };
 		6D82E05E2BC6D71600FD6C21 /* RCTAudioEngineModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTAudioEngineModule.m; sourceTree = "<group>"; };
+		6D82E0612BC6E50400FD6C21 /* LiveKitCapturePostProcessing-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveKitCapturePostProcessing-Bridging-Header.h"; sourceTree = "<group>"; };
+		6D82E0622BC6E50400FD6C21 /* LiveKitCapturePostProcessingTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveKitCapturePostProcessingTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		6D82E0632BC6E50500FD6C21 /* RCTAudioEngineModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCTAudioEngineModule.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LiveKitCapturePostProcessing/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.release.xcconfig"; path = "Target Support Files/Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests/Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -63,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D82E0682BC6E5B900FD6C21 /* SwitchboardSDK in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-LiveKitCapturePostProcessing.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,8 +102,10 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				6D82E05D2BC6D20F00FD6C21 /* RCTAudioEngineModule.h */,
 				6D82E05E2BC6D71600FD6C21 /* RCTAudioEngineModule.m */,
+				6D82E0632BC6E50500FD6C21 /* RCTAudioEngineModule.swift */,
+				6D82E0612BC6E50400FD6C21 /* LiveKitCapturePostProcessing-Bridging-Header.h */,
+				6D82E0622BC6E50400FD6C21 /* LiveKitCapturePostProcessingTests-Bridging-Header.h */,
 			);
 			name = LiveKitCapturePostProcessing;
 			sourceTree = "<group>";
@@ -195,6 +203,9 @@
 			dependencies = (
 			);
 			name = LiveKitCapturePostProcessing;
+			packageProductDependencies = (
+				6D82E0672BC6E5B900FD6C21 /* SwitchboardSDK */,
+			);
 			productName = LiveKitCapturePostProcessing;
 			productReference = 13B07F961A680F5B00A75B9A /* LiveKitCapturePostProcessing.app */;
 			productType = "com.apple.product-type.application";
@@ -209,10 +220,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 1520;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1520;
 					};
 				};
 			};
@@ -225,6 +237,9 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
+			packageReferences = (
+				6D82E0662BC6E5B900FD6C21 /* XCRemoteSwiftPackageReference "switchboard-sdk-ios" */,
+			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -392,6 +407,7 @@
 			files = (
 				6D82E0602BC6D71600FD6C21 /* RCTAudioEngineModule.m in Sources */,
 				00E356F31AD99517003FC87E /* LiveKitCapturePostProcessingTests.m in Sources */,
+				6D82E0652BC6E50500FD6C21 /* RCTAudioEngineModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D82E0642BC6E50500FD6C21 /* RCTAudioEngineModule.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				6D82E05F2BC6D71600FD6C21 /* RCTAudioEngineModule.m in Sources */,
@@ -420,7 +437,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -439,6 +458,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LiveKitCapturePostProcessingTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiveKitCapturePostProcessing.app/LiveKitCapturePostProcessing";
 			};
 			name = Debug;
@@ -447,7 +469,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = LiveKitCapturePostProcessingTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
@@ -463,6 +487,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LiveKitCapturePostProcessingTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiveKitCapturePostProcessing.app/LiveKitCapturePostProcessing";
 			};
 			name = Release;
@@ -488,6 +514,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = LiveKitCapturePostProcessing;
+				SWIFT_OBJC_BRIDGING_HEADER = "LiveKitCapturePostProcessing-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -514,6 +541,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = LiveKitCapturePostProcessing;
+				SWIFT_OBJC_BRIDGING_HEADER = "LiveKitCapturePostProcessing-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -588,10 +616,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -659,10 +684,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -701,6 +723,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6D82E0662BC6E5B900FD6C21 /* XCRemoteSwiftPackageReference "switchboard-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/switchboard-sdk/switchboard-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6D82E0672BC6E5B900FD6C21 /* SwitchboardSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D82E0662BC6E5B900FD6C21 /* XCRemoteSwiftPackageReference "switchboard-sdk-ios" */;
+			productName = SwitchboardSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }

@@ -5,19 +5,13 @@
 //  Created by Banto Balazs on 10/04/2024.
 //
 
-// RCTAudioEngineModule.m
-#import "RCTAudioEngineModule.h"
-#import <React/RCTLog.h>
 
-@implementation RCTAudioEngineModule
+#import <Foundation/Foundation.h>
+#import <React/RCTBridgeModule.h>
 
-// To export a module named RCTAudioEngineModule
-RCT_EXPORT_MODULE();
+@interface RCT_EXTERN_MODULE(RCTAudioEngineModule, NSObject);
 
-RCT_EXPORT_METHOD(initialize)
-{
-  RCTLogInfo(@"Pretending to initializet");
-}
+RCT_EXTERN_METHOD(initialize)
 
 
 @end

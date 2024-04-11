@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "switchboard-sdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/switchboard-sdk/switchboard-sdk-ios",
+      "state" : {
+        "revision" : "fde66ddc2866b19252326d8cbd8bf6fbd33c3c8c",
+        "version" : "1.9.0"
+      }
+    }
+  ],
+  "version" : 2
+}
