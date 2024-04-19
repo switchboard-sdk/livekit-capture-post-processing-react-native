@@ -16,7 +16,7 @@ class RCTAudioEngineModule : NSObject {
 
   override init() {
     super.init()
-//    SBSwitchboardSDK.initialize(withClientID: "clientID", clientSecret: "clientSecret")
+
   }
   
   @objc
@@ -25,21 +25,33 @@ class RCTAudioEngineModule : NSObject {
     audioGraph.connect(sineGeneratorNode, to: audioGraph.outputNode)
     start()
   }
+  
+  @objc(connectToRoom:token:)
+  func connectToRoom(wsURL: String, token: String) {
+      print("Connecting to room with URL \(wsURL) and token \(token)")
 
-  @objc
+  }
+
+  @objc(loadVoice:)
+  func loadVoice(voiceName: String) {
+      print("Loading voice: \(voiceName)")
+  }
+
+  @objc(enableVoicemod:)
+  func enableVoicemod(enable: Bool) {
+      print("Voice modulation enabled: \(enable)")
+  }  
+  
+
   func start() {
     audioEngine.start(audioGraph)
   }
 
-  @objc
   func stop() {
     audioEngine.stop()
   }
 
-  @objc
-  func setFrequency(_ newValue: Float) {
-      sineGeneratorNode.frequency = newValue
-  }
+
 
   @objc
   static func requiresMainQueueSetup() -> Bool {

@@ -13,5 +13,11 @@
 
 RCT_EXTERN_METHOD(initSDK)
 
+RCT_EXTERN_METHOD(connectToRoom:(NSString *)wsURL token:(NSString *)token)
+
+RCT_EXTERN_METHOD(loadVoice:(NSString *)voiceName)
+
+RCT_EXTERN_METHOD(enableVoicemod:(BOOL)enable)
+
 
 @end
