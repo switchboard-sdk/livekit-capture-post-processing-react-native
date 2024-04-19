@@ -11,7 +11,7 @@
 
 @interface RCT_EXTERN_MODULE(RCTAudioEngineModule, NSObject);
 
-RCT_EXTERN_METHOD(initialize)
+RCT_EXTERN_METHOD(initSDK)
 
 
 @end

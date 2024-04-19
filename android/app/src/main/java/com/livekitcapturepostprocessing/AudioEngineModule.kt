@@ -83,7 +83,7 @@ class AudioEngineModule(reactContext: ReactApplicationContext) :
     }
 
     @ReactMethod
-    fun init() {
+    fun initSDK() {
         room = LiveKit.create(
             appContext = reactApplicationContext,
             overrides = LiveKitOverrides(

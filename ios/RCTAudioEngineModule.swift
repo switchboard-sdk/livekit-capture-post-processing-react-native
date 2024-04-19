@@ -10,17 +10,17 @@ import SwitchboardSDK
 @objc(RCTAudioEngineModule)
 class RCTAudioEngineModule : NSObject {
 
-  lazy var audioEngine = SBAudioEngine()
-  lazy var audioGraph = SBAudioGraph()
-  lazy var sineGeneratorNode = SBSineGeneratorNode()
+  let audioEngine = SBAudioEngine()
+  let audioGraph = SBAudioGraph()
+  let sineGeneratorNode = SBSineGeneratorNode()
 
   override init() {
     super.init()
-    SBSwitchboardSDK.initialize(withClientID: "clientID", clientSecret: "clientSecret")
+//    SBSwitchboardSDK.initialize(withClientID: "clientID", clientSecret: "clientSecret")
   }
   
   @objc
-  func initialize() {
+  func initSDK() {
     audioGraph.addNode(sineGeneratorNode)
     audioGraph.connect(sineGeneratorNode, to: audioGraph.outputNode)
     start()

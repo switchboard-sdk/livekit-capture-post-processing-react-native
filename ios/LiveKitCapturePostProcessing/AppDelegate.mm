@@ -1,7 +1,7 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
-//@import SwitchboardSDK;
+#import <SwitchboardSDK/SwitchboardSDK.h>
 
 
 @implementation AppDelegate
@@ -13,7 +13,7 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
   
-//  [SBSwitchboardSDK initializeWithClientID:@"YourClientIDHere" clientSecret:@"YourClientSecretHere"];
+  [SBSwitchboardSDK initializeWithClientID:@"YourClientIDHere" clientSecret:@"YourClientSecretHere"];
 
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
