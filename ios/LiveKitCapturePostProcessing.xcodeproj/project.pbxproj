@@ -729,8 +729,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/switchboard-sdk/switchboard-sdk-ios";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.9.0;
+				branch = develop;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
