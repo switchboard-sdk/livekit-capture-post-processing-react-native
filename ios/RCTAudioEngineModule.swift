@@ -6,13 +6,16 @@
 //
 
 import SwitchboardSDK
+import LiveKit
+
 
 @objc(RCTAudioEngineModule)
 class RCTAudioEngineModule : NSObject {
 
-  let audioEngine = SBAudioEngine()
+//  let audioEngine = SBAudioEngine()
   let audioGraph = SBAudioGraph()
-  let sineGeneratorNode = SBSineGeneratorNode()
+  
+  lazy var room = Room(delegate: self)
 
   override init() {
     super.init()
@@ -21,15 +24,25 @@ class RCTAudioEngineModule : NSObject {
   
   @objc
   func initSDK() {
-    audioGraph.addNode(sineGeneratorNode)
-    audioGraph.connect(sineGeneratorNode, to: audioGraph.outputNode)
-    start()
+//    start()
+    do {
+      try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
+    } catch {
+      print("could not set audio session category")
+    }
   }
   
   @objc(connectToRoom:token:)
   func connectToRoom(wsURL: String, token: String) {
-      print("Connecting to room with URL \(wsURL) and token \(token)")
-
+    print("Connecting to room with URL \(wsURL) and token \(token)")
+    Task {
+        do {
+            try await room.connect(url: wsURL, token: token)
+            try await room.localParticipant.setMicrophone(enabled: true)
+        } catch {
+            print("Failed to connect: \(error)")
+        }
+    }
   }
 
   @objc(loadVoice:)
@@ -44,11 +57,11 @@ class RCTAudioEngineModule : NSObject {
   
 
   func start() {
-    audioEngine.start(audioGraph)
+//    audioEngine.start(audioGraph)
   }
 
   func stop() {
-    audioEngine.stop()
+//    audioEngine.stop()
   }
 
 
@@ -57,4 +70,19 @@ class RCTAudioEngineModule : NSObject {
   static func requiresMainQueueSetup() -> Bool {
     return true
   }
+}
+
+extension RCTAudioEngineModule: RoomDelegate {
+
+    func room(_ room: Room, participant: LocalParticipant, didPublishTrack publication: LocalTrackPublication) {
+        guard let track = publication.track as? VideoTrack else {
+            return
+        }
+    }
+
+    func room(_ room: Room, participant: RemoteParticipant, didSubscribeTrack publication: RemoteTrackPublication) {
+        guard let track = publication.track as? VideoTrack else {
+          return
+        }
+    }
 }

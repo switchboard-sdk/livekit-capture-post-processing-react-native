@@ -12,6 +12,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		6D7BE26B2BD2A41100AFB6A5 /* LiveKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7BE26A2BD2A41100AFB6A5 /* LiveKit */; };
 		6D82E05F2BC6D71600FD6C21 /* RCTAudioEngineModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D82E05E2BC6D71600FD6C21 /* RCTAudioEngineModule.m */; };
 		6D82E0602BC6D71600FD6C21 /* RCTAudioEngineModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D82E05E2BC6D71600FD6C21 /* RCTAudioEngineModule.m */; };
 		6D82E0642BC6E50500FD6C21 /* RCTAudioEngineModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D82E0632BC6E50500FD6C21 /* RCTAudioEngineModule.swift */; };
@@ -68,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D7BE26B2BD2A41100AFB6A5 /* LiveKit in Frameworks */,
 				6D82E0682BC6E5B900FD6C21 /* SwitchboardSDK in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-LiveKitCapturePostProcessing.a in Frameworks */,
 			);
@@ -205,6 +207,7 @@
 			name = LiveKitCapturePostProcessing;
 			packageProductDependencies = (
 				6D82E0672BC6E5B900FD6C21 /* SwitchboardSDK */,
+				6D7BE26A2BD2A41100AFB6A5 /* LiveKit */,
 			);
 			productName = LiveKitCapturePostProcessing;
 			productReference = 13B07F961A680F5B00A75B9A /* LiveKitCapturePostProcessing.app */;
@@ -239,6 +242,7 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			packageReferences = (
 				6D82E0662BC6E5B900FD6C21 /* XCRemoteSwiftPackageReference "switchboard-sdk-ios" */,
+				6D7BE2692BD2A41100AFB6A5 /* XCRemoteSwiftPackageReference "client-sdk-swift" */,
 			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
@@ -725,6 +729,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6D7BE2692BD2A41100AFB6A5 /* XCRemoteSwiftPackageReference "client-sdk-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/livekit/client-sdk-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.5;
+			};
+		};
 		6D82E0662BC6E5B900FD6C21 /* XCRemoteSwiftPackageReference "switchboard-sdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/switchboard-sdk/switchboard-sdk-ios";
@@ -736,6 +748,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6D7BE26A2BD2A41100AFB6A5 /* LiveKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D7BE2692BD2A41100AFB6A5 /* XCRemoteSwiftPackageReference "client-sdk-swift" */;
+			productName = LiveKit;
+		};
 		6D82E0672BC6E5B900FD6C21 /* SwitchboardSDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6D82E0662BC6E5B900FD6C21 /* XCRemoteSwiftPackageReference "switchboard-sdk-ios" */;
