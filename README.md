@@ -2,7 +2,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # LiveKit Capture Post Processing Example App
 
-## Setup
+## Android Setup
 
 Before opening the project please run:
 
@@ -15,4 +15,9 @@ This will download the necessary libraries to build the project.
 ## Run Android App
 ```
 npx react-native run-android
+```
+
+## Run iOS App
+```
+npx react-native run-ios
 ```
