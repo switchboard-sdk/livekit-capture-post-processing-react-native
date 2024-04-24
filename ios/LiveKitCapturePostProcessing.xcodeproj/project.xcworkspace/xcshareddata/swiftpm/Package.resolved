@@ -1,13 +1,49 @@
 {
-  "originHash" : "3d7a082c4cbceb4b8394fb32a9418c4aaad37ff335a418db0ac72327a53edc79",
+  "originHash" : "0100164b492603ea6c841cf57bea0a77d272b3adb27875188f954d96b707791a",
   "pins" : [
+    {
+      "identity" : "client-sdk-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/livekit/client-sdk-swift",
+      "state" : {
+        "revision" : "fceb4566aac45b8e0107c43c740a9e8149850d3b",
+        "version" : "2.0.5"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "e97a6fcb1ab07462881ac165fdbb37f067e205d5",
+        "version" : "1.5.4"
+      }
+    },
+    {
+      "identity" : "swift-protobuf",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-protobuf.git",
+      "state" : {
+        "revision" : "9f0c76544701845ad98716f3f6a774a892152bcb",
+        "version" : "1.26.0"
+      }
+    },
     {
       "identity" : "switchboard-sdk-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/switchboard-sdk/switchboard-sdk-ios",
       "state" : {
-        "revision" : "fde66ddc2866b19252326d8cbd8bf6fbd33c3c8c",
-        "version" : "1.9.0"
+        "branch" : "develop",
+        "revision" : "d72abd64339991636b3c0bd88e7023d4f1c8f6aa"
+      }
+    },
+    {
+      "identity" : "webrtc-xcframework",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/livekit/webrtc-xcframework.git",
+      "state" : {
+        "revision" : "56e5119f00daa2e42e10670d29ae2edbff6be961",
+        "version" : "114.5735.13"
       }
     }
   ],

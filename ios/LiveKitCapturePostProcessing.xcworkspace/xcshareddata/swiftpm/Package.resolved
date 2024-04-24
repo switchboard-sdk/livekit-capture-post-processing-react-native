@@ -1,5 +1,5 @@
 {
-  "originHash" : "c9f9b2f61311b17ffb635b0d831f536510116f3808c3402fc356f2b37517063a",
+  "originHash" : "0100164b492603ea6c841cf57bea0a77d272b3adb27875188f954d96b707791a",
   "pins" : [
     {
       "identity" : "client-sdk-swift",
@@ -34,7 +34,7 @@
       "location" : "https://github.com/switchboard-sdk/switchboard-sdk-ios",
       "state" : {
         "branch" : "develop",
-        "revision" : "78f1b09f5b3e2638a9597a8dc263607a638327c9"
+        "revision" : "d72abd64339991636b3c0bd88e7023d4f1c8f6aa"
       }
     },
     {

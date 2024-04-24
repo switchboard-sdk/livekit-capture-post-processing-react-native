@@ -2,6 +2,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <SwitchboardSDK/SwitchboardSDK.h>
+#import <SwitchboardVoicemod/SwitchboardVoicemod.h>
 
 
 @implementation AppDelegate
@@ -14,6 +15,7 @@
   self.initialProps = @{};
   
   [SBSwitchboardSDK initializeWithClientID:@"YourClientIDHere" clientSecret:@"YourClientSecretHere"];
+  [SBVoicemodExtension initializeWithClientKey:@"YourVoicemodLicense"];
 
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];

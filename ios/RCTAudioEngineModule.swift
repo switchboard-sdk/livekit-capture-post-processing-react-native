@@ -6,26 +6,44 @@
 //
 
 import SwitchboardSDK
+import SwitchboardVoicemod
 import LiveKit
 
 
 @objc(RCTAudioEngineModule)
 class RCTAudioEngineModule : NSObject {
 
-//  let audioEngine = SBAudioEngine()
   let audioGraph = SBAudioGraph()
+  let voicemodNode = SBVoicemodNode()
+  let normalizationGainNode = SBGainNode()
+  let denormalizationGainNode = SBGainNode()
   
   lazy var room = Room(delegate: self)
-  var audioProcessor: AudioCustomProcessingDelegate = MyAudioProcessor()
+  var audioProcessor: AudioCustomProcessingDelegate!
 
   override init() {
     super.init()
-
+    audioProcessor = MyAudioProcessor(graph: audioGraph)
   }
   
   @objc
   func initSDK() {
     do {
+      audioGraph.addNode(normalizationGainNode)
+      audioGraph.addNode(denormalizationGainNode)
+      audioGraph.addNode(voicemodNode)
+      
+      audioGraph.connect(audioGraph.inputNode, to: normalizationGainNode)
+      audioGraph.connect(normalizationGainNode, to: voicemodNode)
+      audioGraph.connect(voicemodNode, to: denormalizationGainNode)
+      audioGraph.connect(denormalizationGainNode, to: audioGraph.outputNode)
+
+      let normalizationFactor:Float = 32768
+      normalizationGainNode.gain = 1 / normalizationFactor
+      denormalizationGainNode.gain = normalizationFactor
+
+      audioGraph.start()
+
       try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
     } catch {
       print("could not set audio session category")
@@ -35,12 +53,11 @@ class RCTAudioEngineModule : NSObject {
   @objc(connectToRoom:token:)
   func connectToRoom(wsURL: String, token: String) {
     print("Connecting to room with URL \(wsURL) and token \(token)")
-   AudioManager.shared.capturePostProcessingDelegate = audioProcessor
+    AudioManager.shared.capturePostProcessingDelegate = audioProcessor
 
     Task {
         do {
             try await room.connect(url: wsURL, token: token)
-//            AudioManager.shared.capturePostProcessingDelegate = audioProcessor
             try await room.localParticipant.setMicrophone(enabled: true)
         } catch {
             print("Failed to connect: \(error)")
@@ -50,7 +67,8 @@ class RCTAudioEngineModule : NSObject {
 
   @objc(loadVoice:)
   func loadVoice(voiceName: String) {
-      print("Loading voice: \(voiceName)")
+    print("Loading voice: \(voiceName)")
+    voicemodNode.loadVoice(voiceName)
   }
 
   @objc(enableVoicemod:)
@@ -81,38 +99,47 @@ extension RCTAudioEngineModule: RoomDelegate {
 }
 
 class MyAudioProcessor: AudioCustomProcessingDelegate {
-  var initSampleRate: Double = 0.0
-  var initChannels: Int = 0
+  var sampleRateHz: Double = 0.0
+  var numberOfChannels: Int = 0
   var bypassCapturePostProcessing = true
+  
+  var inAudioBuffer: SBAudioBuffer?
+  var outAudioBuffer: SBAudioBuffer?
+  var buffer: UnsafeMutablePointer<UnsafeMutablePointer<Float>?>?
+  let audioGraph: SBAudioGraph
+  
+  init(graph: SBAudioGraph) {
+      self.audioGraph = graph
+  }
   
   func setBypassForCapturePostProcessing(bypass: Bool) {
     self.bypassCapturePostProcessing = bypass
   }
 
     func audioProcessingInitialize(sampleRate: Int, channels: Int) {
-      initSampleRate = Double(sampleRate)
-      initChannels = channels
       print("audioProcessingInitialize ")
 
-        // Initialization code here
+      sampleRateHz = Double(sampleRate)
+      numberOfChannels = channels
+      
+      buffer = UnsafeMutablePointer<UnsafeMutablePointer<Float>?>.allocate(capacity: numberOfChannels)
     }
 
     func audioProcessingProcess(audioBuffer: LiveKit.LKAudioBuffer) {
       if (!self.bypassCapturePostProcessing) {
-        let channelCount = audioBuffer.channels
+        assert(numberOfChannels == audioBuffer.channels)
         let frameCount = audioBuffer.frames
-
-        for channel in 0..<channelCount {
-            let samples = audioBuffer.rawBuffer(for: channel)
-            for frame in 0..<frameCount {
-                // Halve the volume by multiplying each sample by 0.5
-                samples[frame] *= 0.1
-            }
-        }
+        
+        buffer!.advanced(by: 0).pointee = audioBuffer.rawBuffer(for: 0)
+        
+        inAudioBuffer = SBAudioBuffer(numberOfChannels: uint(numberOfChannels), numberOfFrames: uint(frameCount), interleaved: false, sampleRate: uint(sampleRateHz), data: buffer)
+        outAudioBuffer = SBAudioBuffer(numberOfChannels: uint(numberOfChannels), numberOfFrames: uint(frameCount), interleaved: false, sampleRate: uint(sampleRateHz), data: buffer)
+        
+        audioGraph.processBuffer(inAudioBuffer, outBuffer: outAudioBuffer)
       }
     }
 
     func audioProcessingRelease() {
-        // Release resources if needed
+      buffer?.deallocate()
     }
 }
