@@ -8,10 +8,11 @@
 import SwitchboardSDK
 import SwitchboardVoicemod
 import LiveKit
+import React
 
 
 @objc(RCTAudioEngineModule)
-class RCTAudioEngineModule : NSObject {
+class RCTAudioEngineModule : RCTEventEmitter {
 
   let audioGraph = SBAudioGraph()
   let voicemodNode = SBVoicemodNode()
@@ -78,23 +79,29 @@ class RCTAudioEngineModule : NSObject {
   }
 
   @objc
-  static func requiresMainQueueSetup() -> Bool {
+  override static func requiresMainQueueSetup() -> Bool {
     return true
+  }
+  
+  override func supportedEvents() -> [String]! {
+      return ["onTrackSubscribed"]
+  }
+
+  func emitEventToReactNative(eventName: String, withBody body: Any) {
+      self.sendEvent(withName: eventName, body: body)
   }
 }
 
 extension RCTAudioEngineModule: RoomDelegate {
 
     func room(_ room: Room, participant: LocalParticipant, didPublishTrack publication: LocalTrackPublication) {
-        guard let track = publication.track as? VideoTrack else {
-            return
-        }
+
     }
 
     func room(_ room: Room, participant: RemoteParticipant, didSubscribeTrack publication: RemoteTrackPublication) {
-        guard let track = publication.track as? VideoTrack else {
-          return
-        }
+      let subscriberName = participant.identity?.stringValue ?? "Unknown"
+      print("onTrackSubscribed: \(subscriberName)")
+      emitEventToReactNative(eventName: "onTrackSubscribed", withBody: subscriberName)
     }
 }
 
@@ -116,6 +123,7 @@ class MyAudioProcessor: AudioCustomProcessingDelegate {
     self.bypassCapturePostProcessing = bypass
   }
 
+  // TODO: currently only works is mono, but it's not an issue since usually channels = 1 anyways
     func audioProcessingInitialize(sampleRate: Int, channels: Int) {
       print("audioProcessingInitialize ")
 
@@ -124,7 +132,8 @@ class MyAudioProcessor: AudioCustomProcessingDelegate {
       
       buffer = UnsafeMutablePointer<UnsafeMutablePointer<Float>?>.allocate(capacity: numberOfChannels)
     }
-
+  
+  // TODO: currently only works is mono, but it's not an issue since usually channels = 1 anyways
     func audioProcessingProcess(audioBuffer: LiveKit.LKAudioBuffer) {
       if (!self.bypassCapturePostProcessing) {
         assert(numberOfChannels == audioBuffer.channels)
