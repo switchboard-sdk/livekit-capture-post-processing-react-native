@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Switch, StyleSheet, DeviceEventEmitter } from 'react-native';
+import { View, Text, Switch, StyleSheet, NativeEventEmitter } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NativeModules } from 'react-native';
 import type { RootStackParamList } from './App';
 
 const { AudioEngineModule } = NativeModules;
+const audioEngineEvents = new NativeEventEmitter(AudioEngineModule);
 
 export const RoomPage = ({
   route,
@@ -20,7 +21,7 @@ export const RoomPage = ({
     AudioEngineModule.connectToRoom(url, token);
 
     // Set up the event listener for onTrackSubscribed
-    const subscription = DeviceEventEmitter.addListener(
+    const subscription = audioEngineEvents.addListener(
       'onTrackSubscribed',
       (subscriberName: string) => {
         setSubscribers((prevNames) => {
