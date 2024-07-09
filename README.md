@@ -1,6 +1,17 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+<a href="https://docs.switchboard.audio/" target="_blank">Find more info on the Switchboard SDK HERE</a>
 
-# LiveKit Capture Post Processing Example App
+<a href="https://youtu.be/HNWxEQmuF1k" target="_blank">YouTube Demo Video</a> 
+
+# Real-Time Voicemod Effects in LiveKit Rooms with SwitchboardSDK
+
+This project demonstrates how to apply Voicemod effects in real-time within a LiveKit room. It uses LiveKit’s AudioProcessingController capture post-processing interface and leverages the flexibility of SwitchboardSDK's audio graph approach to enable dynamic audio processing.
+
+## Features
+ - Real-time [`Voicemod Effects`](https://docs.switchboard.audio/docs/extensions/voicemod/): Apply dynamic voice effects during live sessions.
+ - ['LiveKit'](https://livekit.io/) Integration: Utilize LiveKit for robust audio and video streaming.
+ - [`SwitchboardSDK`](https://docs.switchboard.audio/): Leverage advanced audio processing capabilities with SwitchboardSDK.
+
+
 
 ## Android Setup
 

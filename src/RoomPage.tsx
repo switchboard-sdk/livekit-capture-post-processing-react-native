@@ -55,15 +55,39 @@ export const RoomPage = ({
         style={styles.picker}
         onValueChange={(itemValue) => setSelectedVoice(itemValue)}
       >
+        <Picker.Item label="Alice" value="alice" />
+        <Picker.Item label="Alien" value="alien" />
         <Picker.Item label="Baby" value="baby" />
+        <Picker.Item label="Belcher" value="belcher" />
         <Picker.Item label="Blocks" value="blocks" />
+        <Picker.Item label="Bob" value="bob" />
+        <Picker.Item label="Cartoon Man" value="cartoon-man" />
+        <Picker.Item label="Cartoon Woman" value="cartoon-woman" />
         <Picker.Item label="Cave" value="cave" />
+        <Picker.Item label="Dark" value="dark" />
         <Picker.Item label="Deep" value="deep" />
-        <Picker.Item label="Magic chords" value="magic-chords" />
-        <Picker.Item label="Out of range" value="out-of-range" />
+        <Picker.Item label="Fire Dragon" value="fire-dragon" />
+        <Picker.Item label="Gas Mask" value="gas-mask" />
+        <Picker.Item label="Genki" value="genki" />
+        <Picker.Item label="Ghost" value="ghost" />
+        <Picker.Item label="Magic Chords" value="magic-chords" />
+        <Picker.Item label="Mothership" value="mothership" />
+        <Picker.Item label="Mr. X" value="mr-x" />
+        <Picker.Item label="Out of Range" value="out-of-range" />
         <Picker.Item label="Pilot" value="pilot" />
+        <Picker.Item label="Radio Demon" value="radio-demon" />
+        <Picker.Item label="Robot" value="robot" />
+        <Picker.Item label="Runic Sorceress" value="runic-sorceress" />
+        <Picker.Item label="Space Trooper" value="space-trooper" />
         <Picker.Item label="Speechifier" value="speechifier" />
+        <Picker.Item label="The Billionhair" value="the-billionhair" />
+        <Picker.Item label="The Demon" value="the-demon" />
+        <Picker.Item label="The Narrator" value="the-narrator" />
+        <Picker.Item label="Trailer Guy" value="trailer-guy" />
         <Picker.Item label="Trap Tune" value="trap-tune" />
+        <Picker.Item label="Trauma Medic" value="trauma-medic" />
+        <Picker.Item label="Uncle in Chief" value="uncle-in-chief" />
+        <Picker.Item label="Voicelab" value="voicelab" />
       </Picker>
     </View>
   );

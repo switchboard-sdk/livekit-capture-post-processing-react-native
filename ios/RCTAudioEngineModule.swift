@@ -29,7 +29,6 @@ class RCTAudioEngineModule : RCTEventEmitter {
   
   @objc
   func initSDK() {
-    do {
       audioGraph.addNode(normalizationGainNode)
       audioGraph.addNode(denormalizationGainNode)
       audioGraph.addNode(voicemodNode)
@@ -44,11 +43,6 @@ class RCTAudioEngineModule : RCTEventEmitter {
       denormalizationGainNode.gain = normalizationFactor
 
       audioGraph.start()
-
-      try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
-    } catch {
-      print("could not set audio session category")
-    }
   }
   
   @objc(connectToRoom:token:)
@@ -60,6 +54,9 @@ class RCTAudioEngineModule : RCTEventEmitter {
         do {
             try await room.connect(url: wsURL, token: token)
             try await room.localParticipant.setMicrophone(enabled: true)
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.playAndRecord)
+            try audioSession.setActive(true)
         } catch {
             print("Failed to connect: \(error)")
         }
