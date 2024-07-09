@@ -8,7 +8,7 @@ This project demonstrates how to apply Voicemod effects in real-time within a Li
 
 ## Features
  - Real-time [`Voicemod Effects`](https://docs.switchboard.audio/docs/extensions/voicemod/): Apply dynamic voice effects during live sessions.
- - ['LiveKit'](https://livekit.io/) Integration: Utilize LiveKit for robust audio and video streaming.
+ - [`LiveKit`](https://livekit.io/) Integration: Utilize LiveKit for robust audio and video streaming.
  - [`SwitchboardSDK`](https://docs.switchboard.audio/): Leverage advanced audio processing capabilities with SwitchboardSDK.
 
 
