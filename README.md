@@ -1,8 +1,8 @@
-<a href="https://docs.switchboard.audio/" target="_blank">Find more info on the Switchboard SDK HERE</a>
+ # Real-Time Voicemod Effects in LiveKit Rooms with SwitchboardSDK
 
-<a href="https://youtu.be/HNWxEQmuF1k" target="_blank">YouTube Demo Video</a> 
+ <a href="https://docs.switchboard.audio/" target="_blank">Find more info on the Switchboard SDK HERE</a>
 
-# Real-Time Voicemod Effects in LiveKit Rooms with SwitchboardSDK
+<a href="https://youtu.be/HNWxEQmuF1k" target="_blank">YouTube Demo Video</a>
 
 This project demonstrates how to apply Voicemod effects in real-time within a LiveKit room. It uses LiveKit’s AudioProcessingController capture post-processing interface and leverages the flexibility of SwitchboardSDK's audio graph approach to enable dynamic audio processing.
 
