@@ -14,7 +14,7 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
   
-  [SBSwitchboardSDK initializeWithClientID:@"YourClientIDHere" clientSecret:@"YourClientSecretHere"];
+  [SBSwitchboardSDK initializeWithAppID:@"YourClientIDHere" appSecret:@"YourClientSecretHere"];
   [SBVoicemodExtension initializeWithClientKey:@"YourVoicemodLicense"];
 
 

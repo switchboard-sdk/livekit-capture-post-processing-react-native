@@ -12,13 +12,13 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		6D74C3642C526566008EF174 /* SwitchboardSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 6D74C3632C526566008EF174 /* SwitchboardSDK */; };
 		6D7BE26B2BD2A41100AFB6A5 /* LiveKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7BE26A2BD2A41100AFB6A5 /* LiveKit */; };
 		6D7DB46A2C3D2EB400E69D85 /* SwitchboardVoicemod in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7DB4692C3D2EB400E69D85 /* SwitchboardVoicemod */; };
 		6D82E05F2BC6D71600FD6C21 /* RCTAudioEngineModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D82E05E2BC6D71600FD6C21 /* RCTAudioEngineModule.m */; };
 		6D82E0602BC6D71600FD6C21 /* RCTAudioEngineModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D82E05E2BC6D71600FD6C21 /* RCTAudioEngineModule.m */; };
 		6D82E0642BC6E50500FD6C21 /* RCTAudioEngineModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D82E0632BC6E50500FD6C21 /* RCTAudioEngineModule.swift */; };
 		6D82E0652BC6E50500FD6C21 /* RCTAudioEngineModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D82E0632BC6E50500FD6C21 /* RCTAudioEngineModule.swift */; };
-		6D82E0682BC6E5B900FD6C21 /* SwitchboardSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 6D82E0672BC6E5B900FD6C21 /* SwitchboardSDK */; };
 		7699B88040F8A987B510C191 /* libPods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -52,6 +52,7 @@
 		6D82E0612BC6E50400FD6C21 /* LiveKitCapturePostProcessing-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveKitCapturePostProcessing-Bridging-Header.h"; sourceTree = "<group>"; };
 		6D82E0622BC6E50400FD6C21 /* LiveKitCapturePostProcessingTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveKitCapturePostProcessingTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		6D82E0632BC6E50500FD6C21 /* RCTAudioEngineModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCTAudioEngineModule.swift; sourceTree = "<group>"; };
+		6DA9842E2C4EA26200E12B65 /* SwitchboardSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SwitchboardSDK.xcframework; path = "../../../switchboard-sdk/build/SwitchboardSDK/iOS/SwitchboardSDK.xcframework"; sourceTree = "<group>"; };
 		6DAF7C0B2C34317E00D7EC9B /* SwitchboardVoicemod.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SwitchboardVoicemod.xcframework; path = "../../../htk-new-app/htk-new-app/ios/SwitchboardVoicemod.xcframework"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LiveKitCapturePostProcessing/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.release.xcconfig"; path = "Target Support Files/Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests/Pods-LiveKitCapturePostProcessing-LiveKitCapturePostProcessingTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -72,8 +73,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D7BE26B2BD2A41100AFB6A5 /* LiveKit in Frameworks */,
-				6D82E0682BC6E5B900FD6C21 /* SwitchboardSDK in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-LiveKitCapturePostProcessing.a in Frameworks */,
+				6D74C3642C526566008EF174 /* SwitchboardSDK in Frameworks */,
 				6D7DB46A2C3D2EB400E69D85 /* SwitchboardVoicemod in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,6 +119,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6DA9842E2C4EA26200E12B65 /* SwitchboardSDK.xcframework */,
 				6DAF7C0B2C34317E00D7EC9B /* SwitchboardVoicemod.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-LiveKitCapturePostProcessing.a */,
@@ -210,9 +212,9 @@
 			);
 			name = LiveKitCapturePostProcessing;
 			packageProductDependencies = (
-				6D82E0672BC6E5B900FD6C21 /* SwitchboardSDK */,
 				6D7BE26A2BD2A41100AFB6A5 /* LiveKit */,
 				6D7DB4692C3D2EB400E69D85 /* SwitchboardVoicemod */,
+				6D74C3632C526566008EF174 /* SwitchboardSDK */,
 			);
 			productName = LiveKitCapturePostProcessing;
 			productReference = 13B07F961A680F5B00A75B9A /* LiveKitCapturePostProcessing.app */;
@@ -749,12 +751,17 @@
 			repositoryURL = "https://github.com/switchboard-sdk/switchboard-sdk-ios";
 			requirement = {
 				kind = exactVersion;
-				version = 1.10.0;
+				version = 2.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6D74C3632C526566008EF174 /* SwitchboardSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D82E0662BC6E5B900FD6C21 /* XCRemoteSwiftPackageReference "switchboard-sdk-ios" */;
+			productName = SwitchboardSDK;
+		};
 		6D7BE26A2BD2A41100AFB6A5 /* LiveKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6D7BE2692BD2A41100AFB6A5 /* XCRemoteSwiftPackageReference "client-sdk-swift" */;
@@ -764,11 +771,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6D82E0662BC6E5B900FD6C21 /* XCRemoteSwiftPackageReference "switchboard-sdk-ios" */;
 			productName = SwitchboardVoicemod;
-		};
-		6D82E0672BC6E5B900FD6C21 /* SwitchboardSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6D82E0662BC6E5B900FD6C21 /* XCRemoteSwiftPackageReference "switchboard-sdk-ios" */;
-			productName = SwitchboardSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
