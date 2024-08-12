@@ -9,6 +9,7 @@ import SwitchboardSDK
 import SwitchboardVoicemod
 import LiveKit
 import React
+import SwitchboardRNNoise
 
 
 @objc(RCTAudioEngineModule)
@@ -19,6 +20,8 @@ class RCTAudioEngineModule : RCTEventEmitter {
   let normalizationGainNode = SBGainNode()
   let denormalizationGainNode = SBGainNode()
   
+  let noiseFilterNode = SBRNNoiseFilterNode()
+
   lazy var room = Room(delegate: self)
   var audioProcessor: AudioCustomProcessingDelegate!
 
@@ -32,11 +35,17 @@ class RCTAudioEngineModule : RCTEventEmitter {
       audioGraph.addNode(normalizationGainNode)
       audioGraph.addNode(denormalizationGainNode)
       audioGraph.addNode(voicemodNode)
+      audioGraph.addNode(noiseFilterNode)
       
       audioGraph.connect(audioGraph.inputNode, to: normalizationGainNode)
-      audioGraph.connect(normalizationGainNode, to: voicemodNode)
+      audioGraph.connect(normalizationGainNode, to: noiseFilterNode)
+      audioGraph.connect(noiseFilterNode, to: voicemodNode)
+
       audioGraph.connect(voicemodNode, to: denormalizationGainNode)
       audioGraph.connect(denormalizationGainNode, to: audioGraph.outputNode)
+    
+      voicemodNode.bypassEnabled = false
+      noiseFilterNode.isEnabled = true
 
       let normalizationFactor:Float = 32768
       normalizationGainNode.gain = 1 / normalizationFactor
@@ -57,6 +66,7 @@ class RCTAudioEngineModule : RCTEventEmitter {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(.playAndRecord)
             try audioSession.setActive(true)
+
         } catch {
             print("Failed to connect: \(error)")
         }
@@ -72,7 +82,25 @@ class RCTAudioEngineModule : RCTEventEmitter {
   @objc(enableVoicemod:)
   func enableVoicemod(enable: Bool) {
     print("Voice modulation enabled: \(enable)")
-    (audioProcessor as? MyAudioProcessor)?.bypassCapturePostProcessing = !enable
+    voicemodNode.bypassEnabled = !enable
+  }
+  
+  @objc(enableNoiseFilter:)
+  func enableNoiseFilter(enable: Bool) {
+    print("Noise filter enabled: \(enable)")
+    noiseFilterNode.isEnabled = enable
+  }
+
+  @objc(enableMicrophone:)
+  func enableMicrophone(enable: Bool) {
+    print("Microphone enabled: \(enable)")
+    Task {
+        do {
+            try await room.localParticipant.setMicrophone(enabled: enable)
+        } catch {
+            print("Failed to connect: \(error)")
+        }
+    }
   }
 
   @objc
@@ -105,7 +133,7 @@ extension RCTAudioEngineModule: RoomDelegate {
 class MyAudioProcessor: AudioCustomProcessingDelegate {
   var sampleRateHz: Double = 0.0
   var numberOfChannels: Int = 0
-  var bypassCapturePostProcessing = true
+  var bypassCapturePostProcessing = false
   
   var inAudioBuffer: SBAudioBuffer?
   var outAudioBuffer: SBAudioBuffer?

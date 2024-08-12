@@ -19,5 +19,8 @@ RCT_EXTERN_METHOD(loadVoice:(NSString *)voiceName)
 
 RCT_EXTERN_METHOD(enableVoicemod:(BOOL)enable)
 
+RCT_EXTERN_METHOD(enableNoiseFilter:(BOOL)enable)
+
+RCT_EXTERN_METHOD(enableMicrophone:(BOOL)enable)
 
 @end

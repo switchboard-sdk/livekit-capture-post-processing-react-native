@@ -3,6 +3,8 @@
 #import <React/RCTBundleURLProvider.h>
 #import <SwitchboardSDK/SwitchboardSDK.h>
 #import <SwitchboardVoicemod/SwitchboardVoicemod.h>
+#import <SwitchboardRNNoise/SwitchboardRNNoise.h>
+
 
 
 @implementation AppDelegate
@@ -15,7 +17,9 @@
   self.initialProps = @{};
   
   [SBSwitchboardSDK initializeWithAppID:@"YourClientIDHere" appSecret:@"YourClientSecretHere"];
-  [SBVoicemodExtension initializeWithClientKey:@"YourVoicemodLicense"];
+  [SBVoicemodExtension initializeWithClientKey:@"YourVoicemodKey"];
+  [SBRNNoiseExtension initialize];
+
 
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];

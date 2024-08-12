@@ -13,7 +13,10 @@ export const RoomPage = ({
 }: NativeStackScreenProps<RootStackParamList, 'RoomPage'>) => {
   const { url, token } = route.params;
   const [subscribers, setSubscribers] = useState('');
-  const [isSwitchEnabled, setIsSwitchEnabled] = useState(false);
+  const [isSwitchEnabled, setIsSwitchEnabled] = useState(true);
+  const [isNoiseFilterSwitchEnabled, setIsNoiseFilterSwitchEnabled] = useState(true);
+  const [isMicrophoneSwitchEnabled, setIsMicrophoneSwitchEnabled] = useState(true);
+
   const [selectedVoice, setSelectedVoice] = useState("baby");
 
   useEffect(() => {
@@ -42,14 +45,42 @@ export const RoomPage = ({
     <View style={styles.container}>
       <Text style={styles.label}>Users</Text>
       <Text style={styles.subscriberText}>{subscribers}</Text>
-      <Text style={styles.label}>Voicemod</Text>
-      <Switch
-        onValueChange={(value) => {
-          setIsSwitchEnabled(value);
-          AudioEngineModule.enableVoicemod(value);
-        }}
-        value={isSwitchEnabled}
-      />
+
+      <View style={styles.row}>
+        <Text style={styles.label}>Microphone</Text>
+        <Switch
+          onValueChange={(value) => {
+            setIsMicrophoneSwitchEnabled(value);
+            AudioEngineModule.enableMicrophone(value);
+          }}
+          value={isMicrophoneSwitchEnabled}
+        />
+      </View>
+
+      <View style={styles.row}>
+        <Text style={styles.label}>Noise Filter</Text>
+        <Switch
+          onValueChange={(value) => {
+            setIsNoiseFilterSwitchEnabled(value);
+            AudioEngineModule.enableNoiseFilter(value);
+          }}
+          value={isNoiseFilterSwitchEnabled}
+        />
+      </View>
+
+      <View style={styles.row}>
+        <Text style={styles.label}>Voicemod</Text>
+        <Switch
+          onValueChange={(value) => {
+            setIsSwitchEnabled(value);
+            AudioEngineModule.enableVoicemod(value);
+          }}
+          value={isSwitchEnabled}
+        />
+      </View>
+
+       <Text style={styles.label}>Voicemod voice changers</Text>
+
       <Picker
         selectedValue={selectedVoice}
         style={styles.picker}
@@ -107,7 +138,8 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16, 
     fontWeight: 'bold', 
-    marginBottom: 10, 
+    marginBottom: 10,
+    marginRight: 10,
     color: '#000000',
   },
   picker: {
@@ -115,5 +147,10 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 20,
     color: '#000000',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center', // Center the switch vertically with the text
+    marginBottom: 20,
   },
 });

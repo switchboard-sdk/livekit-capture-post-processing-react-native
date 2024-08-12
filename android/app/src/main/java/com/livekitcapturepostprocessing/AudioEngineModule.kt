@@ -13,6 +13,7 @@ import com.synervoz.switchboard.sdk.audiograph.AudioGraph
 import com.synervoz.switchboard.sdk.audiographnodes.GainNode
 import com.synervoz.switchboard.sdk.enums.AudioSampleFormat
 import com.synervoz.switchboardvoicemod.audiographnodes.VoicemodNode
+import com.synervoz.switchboardrnnoise.audiographnodes.RNNoiseFilterNode
 import io.livekit.android.AudioOptions
 import io.livekit.android.LiveKit
 import io.livekit.android.LiveKitOverrides
@@ -47,6 +48,7 @@ class AudioEngineModule(reactContext: ReactApplicationContext) :
     val voicemodNode = VoicemodNode()
     val normalizationGainNode = GainNode()
     val denormalizationGainNode = GainNode()
+    val noiseFilterNode = RNNoiseFilterNode()
 
     lateinit var room: Room
 
@@ -91,17 +93,22 @@ class AudioEngineModule(reactContext: ReactApplicationContext) :
             ),
         )
 
-        room.audioProcessingController.setBypassForCapturePostProcessing(true)
+        room.audioProcessingController.setBypassForCapturePostProcessing(false)
 
         audioGraph.addNode(normalizationGainNode)
         audioGraph.addNode(denormalizationGainNode)
         audioGraph.addNode(voicemodNode)
+        audioGraph.addNode(noiseFilterNode)
 
         audioGraph.connect(audioGraph.inputNode, normalizationGainNode)
-        audioGraph.connect(normalizationGainNode, voicemodNode)
+        audioGraph.connect(normalizationGainNode, noiseFilterNode)
+        audioGraph.connect(noiseFilterNode, voicemodNode)
         audioGraph.connect(voicemodNode, denormalizationGainNode)
         audioGraph.connect(denormalizationGainNode, audioGraph.outputNode)
 
+        voicemodNode.bypassEnabled = false
+        noiseFilterNode.isEnabled = true
+        
         val normalizationFactor = 32768f
         normalizationGainNode.gain = 1f / normalizationFactor
         denormalizationGainNode.gain = normalizationFactor
@@ -136,7 +143,25 @@ class AudioEngineModule(reactContext: ReactApplicationContext) :
     @ReactMethod
     fun enableVoicemod(enable: Boolean) {
         Log.d(TAG, "enableVoicemod: $enable")
-        room.audioProcessingController.setBypassForCapturePostProcessing(!enable)
+        voicemodNode.bypassEnabled = !enable
+    }
+
+    @ReactMethod
+    fun enableNoiseFilter(enable: Boolean) {
+        Log.d(TAG, "enableNoiseFilter: $enable")
+        noiseFilterNode.isEnabled = enable
+    }
+
+    @ReactMethod
+    fun enableMicrophone(enable: Boolean) {
+        Log.d(TAG, "enableMicrophone: $enable")
+        currentActivity?.let { activity ->
+            if (activity is LifecycleOwner) {
+                activity.lifecycleScope.launch {
+                    room.localParticipant.setMicrophoneEnabled(enable)
+                }
+            }
+        }
     }
 
     @ReactMethod

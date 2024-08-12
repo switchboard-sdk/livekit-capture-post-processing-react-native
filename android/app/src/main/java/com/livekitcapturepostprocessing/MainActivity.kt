@@ -9,6 +9,7 @@ import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
 import com.synervoz.switchboard.sdk.SwitchboardSDK
+import com.synervoz.switchboardrnnoise.RNNoiseExtension
 import com.synervoz.switchboardvoicemod.VoicemodExtension
 
 
@@ -19,7 +20,8 @@ class MainActivity : ReactActivity() {
 
         // This should be called before any SwitchboardSDK is used
         SwitchboardSDK.initialize(this, "clientID", "clientSecret")
-        VoicemodExtension.initialize(this, "voicemod license")
+        VoicemodExtension.initialize(this, "Your Voicemod Key")
+        RNNoiseExtension.initialize()
 
 
         // Check if the permission is already available.

@@ -110,6 +110,7 @@ dependencies {
     implementation("com.facebook.react:flipper-integration")
     implementation(files("../libs/SwitchboardSDK.aar"))
     implementation(files("../libs/SwitchboardVoicemod.aar"))
+    implementation(files("../libs/SwitchboardRNNoise.aar"))
     implementation "io.livekit:livekit-android:2.1.1"
 
     // Kotlin Coroutines for Android
